@@ -1,0 +1,32 @@
+<div class="jumbotron" style="padding: 45px 0">
+  <h4 class="text-center">To Do List App</h4>
+</div>
+
+<div class="input-group">
+  <!-- crea referencia local con #itemTitle -->
+  <input type="text" class="form-control" #itemTitle>
+  <!-- agrega evento que esta a la escucha del click y le pasa por parametro la referencia del input de arriba -->
+  <div class="input-group-prepend hover-cursor" (click)="onAdd(itemTitle)">
+    <div class="input-group-text" >
+      <i class="fa fa-plus-circle fa-2x"></i>
+    </div>
+  </div>
+</div>
+
+<div style="margin: 5px 0">
+  <ul class="list-group">
+    <!-- itera todos los items del array -->
+    <li class="list-group-item" *ngFor="let item of toDolistArray">
+      <!-- la clase text-success se aplica si item es true osea checked, le da el color verde al icono check
+      cuando clic cambia el estado del check en firebase -->
+      <span class="hover-cursor" [class.text-success]="item.isChecked" (click)="alterCheck(item.$key, item.isChecked)">
+        <!-- si es true agrega la clase fa-check-circle-o si es false agrega fa-circle-thin -->
+        <i class="fa fa-lg" [ngClass]="item.isChecked ? 'fa-check-circle-o' : 'fa-circle-thin'"></i>
+      </span>
+      {{ item.title }}
+      <span class="hover-cursor text-danger pull-right" (click)="onDelete(item.$key)">
+        <i class="fa fa-trash-o fa-lg"></i>
+      </span>
+    </li>
+  </ul>
+</div>
